@@ -6,5 +6,5 @@ run gen_config.py (by "python gen_config.py")
 </pre>
 # how to run:<br>
 <pre>
-python main.py<br>
+python main.py
 </pre>
