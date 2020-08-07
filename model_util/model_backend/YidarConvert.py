@@ -25,7 +25,7 @@ spk2acc = {'262': 'Edinburgh', #F
            '248': 'India', #F
            '251': 'India'} #M
 
-speakers = ['p262', 'p272', 'p229', 'p232', 'p292', 'p293', 'p360', 'p361', 'p248', 'p251']
+speakers = ['p262', 'p272', 'p229', 'p232', 'p292', 'p293', 'p360', 'p361', 'p248', 'p251', "p777"]
 spk2idx = dict(zip(speakers, range(len(speakers))))
 
 class TestDataset(object):
@@ -124,7 +124,7 @@ def test_Yidar(config):
     sampling_rate, num_mcep, frame_period=16000, 36, 5
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    G = Generator().to(device)
+    G = Generator(num_speakers=len(speakers)).to(device)
     test_loader = TestDataset(config)
     # Restore model
     print(f'Loading the trained models from step {config.resume_iters}...')

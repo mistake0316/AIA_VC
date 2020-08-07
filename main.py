@@ -42,7 +42,8 @@ class App(QMainWindow):
     self.setWindowTitle(self.title)
     self.setGeometry(self.left, self.top, self.width, self.height)
     #========================= some default setting =========================
-    self.image_mapping = defaultdict(lambda:model_config["default_image"],model_config["speakers_image"])
+    self.image_mapping = defaultdict(lambda:model_config["default_image"],
+                                     model_config["speakers_image"])
     self.model_config = model_config
 
     self.central_widget = QWidget()

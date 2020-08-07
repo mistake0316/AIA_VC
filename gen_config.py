@@ -16,22 +16,35 @@ base_config = {
     },
     "npz_path":"$BASE_PATH/../DATA/temp_data/npz_files",
     "origin_wav_name": "$BASE_PATH/../DATA/temp_data/temp_input/temp_speaker/temp_speaker_source.wav",
-    "speakers" : ["p262", "p272", "p229", "p232", "p292", "p293", "p360", "p361", "p248", "p251", "#蔡英文", "#韓國瑜", "#馬英九"],
-    "speakers_image":{"#蔡英文":"$BASE_PATH/images/english.png",
+    "split_token" : "@", 
+    "speakers" : ["p262@p262",
+                  "p272@p272",
+                  "p229@p229",
+                  "p232@p232",
+                  "p292@p292",
+                  "p293@p293",
+                  "p360@p360",
+                  "p361@p361",
+                  "p248@p248",
+                  "p251@p251",
+                  "p777@蔡英文",
+                  "@#韓國瑜",
+                  "@#馬英九"],
+    "speakers_image":{"蔡英文":"$BASE_PATH/images/english.png",
                       "#韓國瑜":"$BASE_PATH/images/fish.gif",
                       "#馬英九":"$BASE_PATH/images/horse.jpeg"},
     "default_image":"$BASE_PATH/images/convict.jpg",
     "convert_config" : {
-        "num_speakers" : 10,
+        "num_speakers" : 11,
         "num_converted_wavs" : 1,
-        "resume_iters" : 175000,
+        "resume_iters" : 195000,
         "src_spk" : "temp_speaker",
         "trg_spk" : "p262",
         "train_data_dir":"$BASE_PATH/../DATA/temp_data/temp_mc/",
         "test_data_dir" :"$BASE_PATH/../DATA/temp_data/temp_mc/",
         "wav_dir" : "$BASE_PATH/../DATA/temp_data/temp_out",
         "log_dir" : "./logs",
-        "model_save_dir" : "$BASE_PATH/model_util/model_backend/models",
+        "model_save_dir" : "$BASE_PATH/model_util/model_backend/models_with_Tasi",
         "convert_dir" : "$BASE_PATH/model_util/converted"
     }
 }
@@ -53,4 +66,4 @@ if __name__ == "__main__":
     config = replace_token_to_pwd(base_config, token)
     print(config)
     config_path = os.path.join(os.getcwd(), "config.json")
-    json.dump(config, open(config_path,'w'), ensure_ascii=False)
+    json.dump(config, open(config_path,'w'), ensure_ascii=False, indent=4)

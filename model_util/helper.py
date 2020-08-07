@@ -48,9 +48,7 @@ class ModelDisplayWidget(QWidget):
 
     self.layout = QVBoxLayout(self)
    
-    self.trg_combo_box = QComboBox()
-    self.trg_combo_box.addItems(self.model_config["speakers"])
-    self.trg_combo_box.currentIndexChanged.connect(lambda : self.change_target())
+    self.create_trg_combo_box()
 
     self.convert_button = QPushButton("convert")
     self.convert_button.clicked.connect(self.go_convert)
@@ -61,6 +59,14 @@ class ModelDisplayWidget(QWidget):
     self.layout.addWidget(self.convert_button)
 
     self.setLayout(self.layout)
+  
+  def create_trg_combo_box(self):
+    speakers_id_and_name = self.model_config["speakers"]
+    tuples = map(lambda s:str.split(s, self.model_config["split_token"]), speakers_id_and_name)
+    self.trg_id, self.trg_name = zip(*tuples)
+    self.trg_combo_box = QComboBox()
+    self.trg_combo_box.addItems(self.trg_name)
+    self.trg_combo_box.currentIndexChanged.connect(lambda : self.change_target())
   
   def update_config(self, base_config, addition_config):
     for k,v in addition_config.items():
@@ -74,7 +80,8 @@ class ModelDisplayWidget(QWidget):
     if trg != None:
       self.model_config["convert_config"]["trg_spk"] = trg
       return
-    self.model_config["convert_config"]["trg_spk"] = self.trg_combo_box.currentText()
+    idx = self.trg_combo_box.currentIndex()
+    self.model_config["convert_config"]["trg_spk"] = self.trg_id[idx]
 
   def go_convert(self):
     signal, sr = convert_helper.process_one_sound(self.signal, self.sr, self.model_config)
